@@ -1,26 +1,55 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="controls">
+    <Control v-for="list in all"
+             :key="list.idList"
+             :nameList="list.listName"
+             :id="list.idList"
+    />
+    <button @click="addList"> Добавить list</button>
+  </div>
+  <div class="displays">
+    <DisplayLists v-for="list in all"
+                  :key="list.idList"
+                  :nameList="list.listName"
+                  :id="list.idList"
+    />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Control from "./components/Control";
+import DisplayLists from "./components/DisplayLists";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Control,
+    DisplayLists
+  },
+  computed: {
+    ...mapGetters({all: 'all'}),
+  },
+  methods: {
+    ...mapActions({addList: 'addList'})
   }
 }
+
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  justify-content: space-around
+}
+
+.controls {
+  margin: 20px;
+  width: 450px;
+}
+
+.displays {
+  margin: 20px;
+  width: 450px;
 }
 </style>

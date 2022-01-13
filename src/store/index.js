@@ -1,6 +1,7 @@
 import {createStore} from 'vuex'
 
 const getList = (lists, id) => lists.find(item => item.idList === id);
+
 export default createStore({
     state: {
         lists: [
@@ -68,25 +69,25 @@ export default createStore({
         },
 
         editCount(state, {idList, id, newCount}) {
-            let list = state.lists.find(item => item.idList === idList);
+            let list = getList(state.lists, idList);
             let item = list.items.find(item => item.id === id);
             item.count = newCount;
         },
 
         editColor(state, {idList, id, newColor}) {
-            let list = state.lists.find(item => item.idList === idList);
+            let list = getList(state.lists, idList);
             let item = list.items.find(item => item.id === id);
             item.color = newColor;
         },
 
         deleteItem(state, {idList, id}) {
-            let list = state.lists.find(item => item.idList === idList);
+            let list = getList(state.lists, idList);
             let item = list.items.find(item => item.id === id);
             item.count--
         },
 
         editShowAllItem(state, {idList, value}) {
-            let list = state.lists.find(item => item.idList === idList);
+            let list = getList(state.lists, idList);
             list.items.forEach(item => item.active = value);
         },
 
